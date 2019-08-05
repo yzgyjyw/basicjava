@@ -1,5 +1,4 @@
 target/
-cache/target/
 *.idea
 *.iml
 output.txt

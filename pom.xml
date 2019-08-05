@@ -10,6 +10,12 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>cache</module>
+      <module>mq</module>
+      <module>basic</module>
+      <module>concurrent</module>
+    <module>designpattern</module>
+      <module>jvm</module>
+    <module>io</module>
   </modules>
 
   <name>basicjava</name>
@@ -34,6 +40,25 @@
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
       <version>1.2.47</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>26.0-jre</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.5</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
     </dependency>
 
   </dependencies>
