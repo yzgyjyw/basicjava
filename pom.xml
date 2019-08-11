@@ -16,6 +16,9 @@
     <module>designpattern</module>
       <module>jvm</module>
     <module>io</module>
+    <module>redis</module>
+    <module>algorithm</module>
+    <module>zk_client</module>
   </modules>
 
   <name>basicjava</name>
