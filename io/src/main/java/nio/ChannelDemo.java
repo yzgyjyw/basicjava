@@ -53,6 +53,5 @@ public class ChannelDemo {
 
         inputStream.close();
         outputStream.close();
-
     }
 }
