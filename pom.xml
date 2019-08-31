@@ -19,6 +19,7 @@
     <module>redis</module>
     <module>algorithm</module>
     <module>zk_client</module>
+      <module>performance</module>
   </modules>
 
   <name>basicjava</name>
