@@ -1,7 +1,6 @@
 package nio;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -18,7 +17,8 @@ public class BufferDemo {
 //        slice();
 //        readOnlyBuffer();
 //        mapperIO();
-        directBuffer();
+//        directBuffer();
+        typeByteBuffer();
     }
 
     //缓冲区分片操作
@@ -101,6 +101,21 @@ public class BufferDemo {
 
         inputStream.close();
         outputStream.close();
+    }
+
+    public static void typeByteBuffer(){
+        ByteBuffer buffer = ByteBuffer.allocate(20);
+
+        buffer.putInt(10);
+        buffer.putLong(999999999999999999L);
+        buffer.putDouble(Math.PI);
+
+        buffer.flip();
+
+        System.out.println(buffer.getInt());
+        System.out.println(buffer.getLong());
+        System.out.println(buffer.getDouble());
+
     }
 
 }
