@@ -21,7 +21,8 @@ public class ThreadPoolShutDown {
 //        fixedThreadPool.submit(new Runner());
         boolean terminated = fixedThreadPool.isTerminated();
 
-        fixedThreadPool.awaitTermination(1, TimeUnit.SECONDS);
+        //阻塞当前线程，直到：1，到达timeout时间，2.线程池退出，3.当前线程interrupt
+        fixedThreadPool.awaitTermination(2000, TimeUnit.SECONDS);
         System.out.println(terminated);
         while(!terminated){
             terminated = fixedThreadPool.isTerminated();
