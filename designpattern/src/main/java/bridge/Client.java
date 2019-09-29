@@ -5,8 +5,8 @@ package bridge;
  */
 public class Client {
     public static void main(String[] args) {
-        BatteryA batteryA = new BatteryA();
-        BatteryB batteryB = new BatteryB();
+        Battery batteryA = new BatteryA();
+        Battery batteryB = new BatteryB();
 
         MiPhone miPhone = new MiPhone(batteryA);
         RedMiPhone redMiPhone = new RedMiPhone(batteryB);

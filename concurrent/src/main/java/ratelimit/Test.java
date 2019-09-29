@@ -12,10 +12,10 @@ public class Test {
 
         while (true) {
             // 0 ratelimit采用滞后处理的方式应对令牌不足:前一个请求获取令牌等待的时间需要由后一个请求承受
-            System.out.println("get 1 tokens: "+ r.acquire(1) + "s");
+            System.out.println("get 1 tokens: "+ r.acquire(1) + "s");  //0
 
-            System.out.println("get 1 tokens: "+ r.acquire(1) + "s");
-            System.out.println("get 1 tokens: "+ r.acquire(1) + "s");
+            System.out.println("get 1 tokens: "+ r.acquire(1) + "s");   //0.5
+            System.out.println("get 1 tokens: "+ r.acquire(1) + "s");   //1
             System.out.println("get 1 tokens: "+ r.acquire(1) + "s");
             System.out.println("get 1 tokens: "+ r.acquire(1) + "s");
             System.out.println("get 1 tokens: "+ r.acquire(1) + "s");
