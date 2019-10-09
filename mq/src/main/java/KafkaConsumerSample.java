@@ -3,8 +3,6 @@ import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
-import org.apache.kafka.common.serialization.IntegerDeserializer;
-import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -14,12 +12,12 @@ import java.util.concurrent.Executors;
 public class KafkaConsumerSample {
     private static final String zkAddress = "127.0.0.1:2181/kafka";
     public static void main(String[] args) throws InterruptedException {
-        for (int j = 0; j < 2; j++) {
+//        for (int j = 0; j < 2; j++) {
             ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5);
 
             Properties props = new Properties();
             props.put("zookeeper.connect", zkAddress);
-            props.put("group.id", "hello-group"+j);
+            props.put("group.id", "hello-group");
             props.put("enable.auto.commit", "true");
             props.put("auto.commit.interval.ms", "1000");
             props.put("session.timeout.ms", "300000000000");
@@ -58,7 +56,7 @@ public class KafkaConsumerSample {
 //        Thread.sleep(10000);
 //        System.out.println("10s后关闭线程1:\t" + threads.get(0).getName());
 //        threads.get(0).interrupt();
-    }
+//    }
 
 
 }

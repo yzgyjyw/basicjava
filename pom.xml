@@ -20,6 +20,7 @@
         <module>algorithm</module>
         <module>zk_client</module>
         <module>performance</module>
+        <module>tool</module>
     </modules>
 
     <name>basicjava</name>
