@@ -36,7 +36,7 @@ public class KafkaProducerSample {
             kafkaProducer.send(producerRecord1);
             kafkaProducer.send(producerRecord2);
             System.out.println("send " + count++);
-            Thread.sleep(1000);
+            Thread.sleep(5000);
         }
 
 //        kafkaProducer.close();

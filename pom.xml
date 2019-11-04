@@ -21,6 +21,7 @@
         <module>zk_client</module>
         <module>performance</module>
         <module>tool</module>
+        <module>spingboot</module>
     </modules>
 
     <name>basicjava</name>
