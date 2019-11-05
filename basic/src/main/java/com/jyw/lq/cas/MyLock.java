@@ -36,8 +36,9 @@ public class MyLock {
         }
     }
 
-    public MyLock(){
-        head = tail = new Node(Thread.currentThread(),null);
+    public MyLock() {
+        // 初始化参数AQS的初始化
+        head = tail = new Node(null, null);
     }
 
     private boolean compareAndSetState() {
@@ -60,34 +61,44 @@ public class MyLock {
     }
 
     public void lock() {
+        // 如果设置成功则表示成功获取到锁
         if (compareAndSetState()) {
             return;
         }
+        // 没有成功获取到锁.将节点入队
         Node node = enque();
         while (node.prev != head || !compareAndSetState()) {
+            // 当前node不是head(确保按照入队的顺序获取锁)或者设置state没有成功则阻塞当前线程
             unsafe.park(false, 0L);
         }
         //head永远指向上一个获取锁的Node节点
         head = node;
+        // 清除head节点的内的引用,协助GC
+        node.thread = null;
+        node.prev = null;
+        node.next = null;
     }
 
     public void unLock() {
+        // 同一时刻只会有一个线程执行这个方法,故不存在并发
         state = 0;
         Node next = head.next;
         if (next != null) {
+            // 唤醒队列中下一个节点的线程
             unsafe.unpark(next.thread);
         }
     }
 
     static int count = 0;
+
     public static void main(String[] args) throws InterruptedException {
 
         MyLock myLock = new MyLock();
-        IntStream.range(0,100000).forEach(i->new Thread(()->{
+        IntStream.range(0, 100000).forEach(i -> new Thread(() -> {
             myLock.lock();
-            try{
+            try {
                 count++;
-            }finally {
+            } finally {
                 myLock.unLock();
             }
 
