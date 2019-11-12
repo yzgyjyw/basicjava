@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Function;
@@ -36,13 +37,16 @@ class Cache<K, V> {
     private Map<K, V> map = new HashMap<>();
     private ReadWriteLock lock = new ReentrantReadWriteLock();
 
+    final Lock readLock = lock.readLock();
+    final Lock writeLock = lock.writeLock();
+
     public V get(K key, Function<K, V> func) {
         V value = null;
         try {
-            lock.readLock().lock();
+            readLock.lock();
             value = map.get(key);
         } finally {
-            lock.readLock().unlock();
+            readLock.unlock();
         }
 
         if (value != null) {
@@ -50,7 +54,7 @@ class Cache<K, V> {
         }
 
         try {
-            lock.writeLock().lock();
+            writeLock.lock();
             //再次检查key针对的value是否为null，类似于单例模式中的双重检测
             value = map.get(key);
             if (value != null) {
@@ -59,7 +63,7 @@ class Cache<K, V> {
             map.put(key, func.apply(key));
             return map.get(key);
         } finally {
-            lock.writeLock().unlock();
+            writeLock.unlock();
         }
     }
 }
