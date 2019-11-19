@@ -89,9 +89,5 @@ public class Serial2Concurrent {
 
         queryDOrderThread.start();
         queryPOrderThread.start();
-
-
     }
-
-
 }

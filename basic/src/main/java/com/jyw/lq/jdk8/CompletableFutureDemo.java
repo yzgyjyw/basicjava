@@ -67,7 +67,7 @@ public class CompletableFutureDemo {
     private static void allof() throws InterruptedException {
         CompletableFuture completableFuture1 = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(10);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -76,7 +76,7 @@ public class CompletableFutureDemo {
 
         CompletableFuture completableFuture2 = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(100);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
