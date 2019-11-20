@@ -37,7 +37,7 @@ public class MyLock {
     }
 
     public MyLock() {
-        // 初始化参数AQS的初始化
+        // 初始化参照AQS的初始化
         head = tail = new Node(null, null);
     }
 

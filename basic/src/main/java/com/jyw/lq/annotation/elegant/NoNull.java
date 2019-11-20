@@ -7,6 +7,8 @@ public class NoNull {
 
         System.out.println(concatString(null,"21"));
 
+        System.out.println(1);
+
     }
 
     public static String concatString(@NonNull String name,@NonNull String age){
