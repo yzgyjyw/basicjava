@@ -12,6 +12,28 @@ import java.util.TimerTask;
  */
 public class TimerDemo {
     public static void main(String[] args) {
+        taskThrowException();
+    }
+
+    public static void taskThrowException(){
+        // 一旦task抛出异常，就会导致TimeThread的run方法直接退出
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                int a = 1/0;
+                System.out.println(System.currentTimeMillis()+"\t执行了");
+            }
+        },0L,1000L);
+
+        try {
+            Thread.sleep(Long.MAX_VALUE);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void threadDelay(){
         Timer timer = new Timer();
         // 由于Timer中只存在一个线程，因此当有一个task执行所需的时间较长时，会影响另一个task的执行，这边shortTimeTask就不会每个1000ms执行一次，变成了每4s执行一次（固定延时策略）
         /*timer.schedule(new HighTimeTask(), 0L,1000L);

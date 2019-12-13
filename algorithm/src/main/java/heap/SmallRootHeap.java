@@ -13,6 +13,7 @@ public class SmallRootHeap {
         this.array = new int[length];
     }
 
+    //O(logn)
     public void add(int element) {
         if (size >= length) {
             throw new RuntimeException("exceed max length");
@@ -37,7 +38,7 @@ public class SmallRootHeap {
         size++;
     }
 
-    //针对大顶堆与小顶堆,删除操作针对的是根节点
+    //针对大顶堆与小顶堆,删除操作针对的是根节点 O(logn)
     public int pop() {
         if (size <= 0) {
             throw new RuntimeException("没有元素");

@@ -22,6 +22,7 @@
         <module>performance</module>
         <module>tool</module>
         <module>spingboot</module>
+        <module>orm</module>
     </modules>
 
     <name>basicjava</name>

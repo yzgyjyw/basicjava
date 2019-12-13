@@ -173,13 +173,14 @@ public final class RingBufferWheel {
     private Set<Task> remove(int key) {
         Set<Task> tempTask = new HashSet<>();
         Set<Task> result = new HashSet<>();
-
+        // 获取槽号key的所有的任务
         Set<Task> tasks = (Set<Task>) ringBuffer[key];
         if (tasks == null) {
             return result;
         }
 
         for (Task task : tasks) {
+            // 判断当前的轮数是否为0,为0则添加到集合中，否则就是将轮数减1
             if (task.getCycleNum() == 0) {
                 result.add(task);
 
@@ -191,7 +192,7 @@ public final class RingBufferWheel {
             }
         }
 
-        //update origin data
+        // 更新槽为key的任务集合
         ringBuffer[key] = tempTask;
 
         return result;
@@ -222,7 +223,7 @@ public final class RingBufferWheel {
     }
 
     private int mod(int target, int mod) {
-        // equals target % mod
+        // 任务添加的时候，时间轮已经在执行了，所以当前任务的delay时间需要加上时间轮已经启动的时间
         target = target + tick.get() ;
         return target & (mod - 1);
     }
@@ -270,7 +271,7 @@ public final class RingBufferWheel {
         public void run() {
             int index = 0;
             while (!stop) {
-
+                // 获取槽号为index并且轮数为0的所有的任务
                 Set<Task> tasks = remove(index);
                 for (Task task : tasks) {
                     executorService.submit(task);
