@@ -1,7 +1,9 @@
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.*;
 
+import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class KafkaProducerSample {
     private final static String hostAndPort = "127.0.0.1:9092";
@@ -22,8 +24,9 @@ public class KafkaProducerSample {
          */
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,MyInterceptor.class.getName());
 
-        KafkaProducer kafkaProducer = new KafkaProducer(properties);
+        KafkaProducer<String, String> kafkaProducer = new KafkaProducer(properties);
         /**
          * KeyedMessage中"test-topic"为topic的名字，"test-message"为消息内容
          * 6为对应的key值
@@ -33,8 +36,18 @@ public class KafkaProducerSample {
         while (true) {
             ProducerRecord<String, String> producerRecord1 = new ProducerRecord<>("test01", String.valueOf(count), "hello\t" + count);
             ProducerRecord<String, String> producerRecord2 = new ProducerRecord<>("test02", String.valueOf(count), "hello2\t" + count);
-            kafkaProducer.send(producerRecord1);
-            kafkaProducer.send(producerRecord2);
+            try {
+                RecordMetadata recordMetadata = kafkaProducer.send(producerRecord1).get();
+            } catch (ExecutionException e) {
+                //TODO
+            }
+
+            kafkaProducer.send(producerRecord2, new Callback() {
+                @Override
+                public void onCompletion(RecordMetadata metadata, Exception exception) {
+                    //TODO
+                }
+            });
             System.out.println("send " + count++);
             Thread.sleep(5000);
         }
@@ -42,5 +55,31 @@ public class KafkaProducerSample {
 //        kafkaProducer.close();
 
 //        System.out.println("product end");
+    }
+}
+
+class MyInterceptor implements ProducerInterceptor {
+
+    private static AtomicInteger totalMessage;
+
+    @Override
+    public ProducerRecord onSend(ProducerRecord record) {
+        return new ProducerRecord(record.topic(), record.partition(), record.timestamp(), record.key(), record.value() + "--inteceptor1");
+
+    }
+
+    @Override
+    public void onAcknowledgement(RecordMetadata metadata, Exception exception) {
+
+    }
+
+    @Override
+    public void close() {
+
+    }
+
+    @Override
+    public void configure(Map<String, ?> configs) {
+
     }
 }

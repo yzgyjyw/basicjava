@@ -10,9 +10,8 @@ import java.util.Map;
 public class FinallyUpdateReturnValue {
 
     public static void main(String[] args) {
+        System.out.println(getMap());
 //        System.out.println(test3());
-//        System.out.println(getMap());
-        System.out.println(test3());
     }
 
 

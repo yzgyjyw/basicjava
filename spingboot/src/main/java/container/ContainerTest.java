@@ -22,6 +22,9 @@ public class ContainerTest {
         javaBean1.printClassName();
         context.close();
         System.out.println(1);
+
+
+
     }
 
 }

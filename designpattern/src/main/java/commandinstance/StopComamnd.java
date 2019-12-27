@@ -10,6 +10,6 @@ public class StopComamnd implements AudioCommand {
 
     @Override
     public void execute() {
-        audioPlayer.play();
+        audioPlayer.stop();
     }
 }

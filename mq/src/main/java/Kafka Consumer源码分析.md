@@ -87,7 +87,7 @@ def consume[K, V](topicCountMap: scala.collection.Map[String,Int], keyDecoder: D
     if (topicCountMap == null)
       throw new RuntimeException("topicCountMap is null")
 
-    //StaticTopicCount对象,{consumerIdStrin='hello-group_mi-OptiPlex-7050-1570626069724-c647fe32',topicCountMap{(test02,3),(test01,2)}}
+    //StaticTopicCount对象,{consumerIdString='hello-group_mi-OptiPlex-7050-1570626069724-c647fe32',topicCountMap{(test02,3),(test01,2)}}
     val topicCount = TopicCount.constructTopicCount(consumerIdString, topicCountMap)
 
     //(test01,Set(hello-group_mi-OptiPlex-7050-1570626069724-c647fe32-1, hello-group_mi-OptiPlex-7050-1570626069724-c647fe32-0))

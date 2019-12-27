@@ -9,5 +9,7 @@ public class SeasonTest {
         for(Season s : Season.values()){
 
         }
+        System.out.println("------------------------------");
+        System.out.println(Season.valueOf("SPRING"));
     }
 }
