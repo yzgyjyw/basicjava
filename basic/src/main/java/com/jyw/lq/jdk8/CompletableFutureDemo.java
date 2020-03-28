@@ -10,14 +10,14 @@ public class CompletableFutureDemo {
     }
 
     private static void demo01() throws InterruptedException, ExecutionException {
-                System.out.println("主线程:" + Thread.currentThread().getName());
-                //supplyAsync:从全局的 ForkJoinPool.commonPool()获得一个线程中执行这些任务
-                CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
-                    System.out.println("子线程:" + Thread.currentThread().getName());
-                    try {
-                        Thread.sleep(100);
-                        throw new RuntimeException("Completable future error");
-                    } catch (InterruptedException e) {
+        System.out.println("主线程:" + Thread.currentThread().getName());
+        //supplyAsync:从全局的 ForkJoinPool.commonPool()获得一个线程中执行这些任务
+        CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
+            System.out.println("子线程:" + Thread.currentThread().getName());
+            try {
+                Thread.sleep(100);
+                throw new RuntimeException("Completable future error");
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -36,7 +36,7 @@ public class CompletableFutureDemo {
         System.out.println("completableFuture result: " + completableFuture.get());
 
         //除了supplyAsync方法,异步执行的任务有返回值,还有runAsync用于异步执行那些不需要返回值的任务
-}
+    }
 
     private static void thenApply() throws ExecutionException, InterruptedException {
         System.out.println("主线程:" + Thread.currentThread().getName());
@@ -67,7 +67,7 @@ public class CompletableFutureDemo {
     private static void allof() throws InterruptedException {
         CompletableFuture completableFuture1 = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(10);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -76,7 +76,7 @@ public class CompletableFutureDemo {
 
         CompletableFuture completableFuture2 = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(100);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

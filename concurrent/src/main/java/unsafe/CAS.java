@@ -1,10 +1,9 @@
-package com.jyw.lq.unsafe;
+package unsafe;
 
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 

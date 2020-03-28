@@ -10,7 +10,9 @@ public class SmallRootHeapTest {
         heap.add(1);
         System.out.println(heap);
 
-        heap.pop();
-        System.out.println(heap);
+        for(int i=0;i<5;i++){
+            System.out.println(heap.pop());
+            System.out.println(heap);
+        }
     }
 }

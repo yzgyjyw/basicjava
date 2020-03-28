@@ -23,6 +23,7 @@ public class KafkaConsumerSample {
             props.put("session.timeout.ms", "300000000000");
 
             Map<String, Integer> topicCountMap = new HashMap<>();
+            //这边的2可以理解为当前consumerConnector想要消费test01这个topic中的两个分区，但是不一定会消费到2个
             topicCountMap.put("test01", 2);
             topicCountMap.put("test02", 3);
 

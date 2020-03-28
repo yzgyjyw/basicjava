@@ -36,20 +36,10 @@ public class Person implements Cloneable {
         primitiveClone();
 
         //对象clone，浅拷贝
-        Person person = new Person();
-        person.setAge(20);
-        person.setName("jyw");
-        Object clone = person.clone();
-        System.out.println(clone);
+        objectClone();
 
-        //对象数组clone 浅拷贝
-        Person[] persons = new Person[10];
-        for (int i = 0; i < 10; i++) {
-            persons[i] = new Person();
-        }
-        Person[] clone2 = persons.clone();
         //true 数组的clone为浅拷贝
-        System.out.println(clone2[0].equals(persons[0]));
+        objectArrayClone();
     }
 
     private static void primitiveClone() {
@@ -59,7 +49,28 @@ public class Person implements Cloneable {
         }
         int[] clone1 = array.clone();
         clone1[0] = 100;
-        System.out.println(array[0]);
         //基本数据类型的数组的clone是ok的,clone[0] != array[0]
+        System.out.println(array[0]);
+    }
+
+    private static void objectClone() throws CloneNotSupportedException {
+        Person person = new Person();
+        person.setAge(20);
+        person.setName("jyw");
+        Object clone = person.clone();
+        System.out.println(clone == person);
+    }
+
+    private static void objectArrayClone(){
+        //对象数组clone 浅拷贝
+        Person[] persons = new Person[10];
+        for (int i = 0; i < 10; i++) {
+            persons[i] = new Person();
+        }
+        Person[] clone2 = persons.clone();
+        // false
+        System.out.println(clone2 == persons);
+        //true 数组的clone为浅拷贝
+        System.out.println(clone2[0] == persons[0]);
     }
 }

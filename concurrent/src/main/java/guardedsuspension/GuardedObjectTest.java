@@ -1,32 +1,58 @@
 package guardedsuspension;
 
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class GuardedObjectTest {
     public static void main(String[] args) {
-        Message message = new Message("1", "");
 
-        GuardedObject<Message> guardedObject = GuardedObject.create(message.id);
+        /*ExecutorService executorService = Executors.newFixedThreadPool(100);
+        for (int i = 0; i < 100; i++) {
+            executorService.execute(() -> {
+                Request request = new Request(String.valueOf(System.currentTimeMillis()), null);
+                GuardedObject<Response> guardedObject = GuardedObject.create(request.id);
+                new Thread(new GuardedObjectTestThread(request)).start();
+                Response response = guardedObject.get(t -> t != null);
+                System.out.println(response);
+            });
+        }*/
 
-        new Thread(new GuardedObjectTestThread(message)).start();
-
-        Message message1 = guardedObject.get(t -> t != null);
-
-        System.out.println(message1);
+        System.out.println(Math.abs("41148206316".hashCode() % 10000) / 10000.0);
     }
 }
 
-class Message {
+class Request {
+    String id;
+    String content;
+
+    public Request(String id, String content) {
+        this.id = id;
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id='" + id + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
+}
+
+class Response {
     String id;
     String result;
 
-    public Message(String id, String result) {
+    public Response(String id, String result) {
         this.id = id;
         this.result = result;
     }
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "Response{" +
                 "id='" + id + '\'' +
                 ", result='" + result + '\'' +
                 '}';
@@ -35,10 +61,10 @@ class Message {
 
 class GuardedObjectTestThread implements Runnable {
 
-    Message message;
+    Request request;
 
-    public GuardedObjectTestThread(Message message) {
-        this.message = message;
+    public GuardedObjectTestThread(Request request) {
+        this.request = request;
     }
 
     @Override
@@ -49,8 +75,9 @@ class GuardedObjectTestThread implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        message.result = "message result";
+        Response response = new Response(request.id, "result:" + request.content);
 
-        GuardedObject.fireEvent(message.id, message);
+        //这一步
+        GuardedObject.fireEvent(request.id, response);
     }
 }
