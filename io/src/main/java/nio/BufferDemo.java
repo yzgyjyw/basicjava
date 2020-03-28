@@ -14,11 +14,11 @@ import java.nio.channels.FileChannel;
 public class BufferDemo {
 
     public static void main(String[] args) throws IOException {
-//        slice();
+        slice();
 //        readOnlyBuffer();
 //        mapperIO();
 //        directBuffer();
-        typeByteBuffer();
+//        typeByteBuffer();
     }
 
     //缓冲区分片操作
@@ -35,15 +35,15 @@ public class BufferDemo {
         buffer.limit(7);
         //从当前的pos位置到limit位置切片,不过该切片返回的sliceBuffer与原buffer共享同一个底层的字节数组
         //[3,7)
-        ByteBuffer sliceBuffer = buffer.slice();
+        ByteBuffer sliceBuffer = buffer.slice();//java.nio.HeapByteBuffer[pos=0 lim=4 cap=4]
 
         for (int i = 0; i < sliceBuffer.capacity(); i++) {
             byte b = sliceBuffer.get(i);
             sliceBuffer.put(i, (byte) (b * 11));
         }
 
-        System.out.println(sliceBuffer.position());  //10
-        System.out.println(sliceBuffer.limit());     //10
+        System.out.println(sliceBuffer.position());  //0
+        System.out.println(sliceBuffer.limit());     //4
 
         //flip操作：将position赋值给limit，同时position置为0
 //        buffer.flip();
