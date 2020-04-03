@@ -32,7 +32,7 @@ public class KafkaConsumerSample {
 
             Map<String, List<KafkaStream<byte[], byte[]>>> messageStreams = consumerConnector.createMessageStreams(topicCountMap);
 
-        /*messageStreams.forEach((k, v) -> {
+        /*messageStreams.forEach((k, v) -> {ms
             v.forEach(stream -> {
                 fixedThreadPool.execute(() -> {
                     ConsumerIterator<byte[], byte[]> iterator = stream.iterator();

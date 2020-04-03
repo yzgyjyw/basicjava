@@ -3,6 +3,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.errors.WakeupException;
 
 import java.util.*;
 
@@ -18,7 +19,6 @@ public class NewKafkaConsumer {
         kafkaConsumer.subscribe(topicList);
         try {
             while (true) {
-
 
 
                 List<ConsumerRecord<String, String>> buffers = new ArrayList<>();
@@ -66,5 +66,64 @@ public class NewKafkaConsumer {
             kafkaConsumer.commitAsync();
             kafkaConsumer.close();
         }
+    }
+
+    // 一个消费者示例代码
+    /*public void example() {
+        Properties properties = new Properties();
+        properties.put("...", "...");
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
+        List<String> topicList = Collections.singletonList("test01");
+        kafkaConsumer.subscribe(topicList);
+        try {
+            while (isRunning) {
+                // kafkaConsumer.poll();
+                // process the record;
+                // commit offset;
+            }
+        } catch (WakeupException wakeupException) {
+            //ignore   wakeupException
+        } catch (Exception ex) {
+
+        } finally {
+            //maybe commit offset;
+            kafkaConsumer.close();
+        }
+
+
+    }*/
+
+    /*public void seek(){
+        Properties properties = new Properties();
+        properties.put("...", "...");
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
+        List<String> topicList = Collections.singletonList("test01");
+        kafkaConsumer.subscribe(topicList);
+
+        kafkaConsumer.poll(10000);
+
+        Set<TopicPartition> assignment = new HashSet<>();
+        while(assignment.size() <= 0 ){
+            kafkaConsumer.poll(100);
+            assignment = kafkaConsumer.assignment();
+        }
+
+        Set<TopicPartition> assignment = kafkaConsumer.assignment();
+        assignment.forEach(topicPartition->kafkaConsumer.seek(topicPartition,10));
+        while(true){
+            ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(10000);
+            //handle records
+        }
+    }*/
+
+    public void end(){
+        Properties properties = new Properties();
+        properties.put("...", "...");
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
+        List<String> topicList = Collections.singletonList("test01");
+        kafkaConsumer.subscribe(topicList);
+
+
+
     }
 }
