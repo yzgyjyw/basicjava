@@ -7,22 +7,14 @@ import java.util.regex.Pattern;
 
 public class PatternTest {
     public static void main(String[] args) {
-        /*String s = "xxyyxxxyxxyxx";
-        Pattern greedy = Pattern.compile("xx(.*)xx");
-        Pattern reluctant = Pattern.compile("xx(.*?)xx");
-        Pattern possessive = Pattern.compile("xx(.*+)xx");
-        Matcher m1 = greedy.matcher(s);
-        Matcher m2 = reluctant.matcher(s);
-        Matcher m3 = possessive.matcher(s);
-        while (m1.find()) {
-            System.out.println("greedy..." + m1.group(1));
+        String content = "abbbcbc";
+
+        String pattern = "ab{1,3}?bc";
+        Pattern compile = Pattern.compile(pattern);
+        Matcher matcher = compile.matcher(content);
+        if(matcher.find()){
+            System.out.println(matcher.group(0));
         }
-        while (m2.find()) {
-            System.out.println("reluctant..." + m2.group(1));
-        }
-        while (m3.find()) {
-            System.out.println("possessive..." + m3.group(1));
-        }*/
 
         List<String> list = new ArrayList<>();
         for (String str : list) {

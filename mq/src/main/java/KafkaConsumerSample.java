@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 
 public class KafkaConsumerSample {
-    private static final String zkAddress = "127.0.0.1:2181/kafka";
+    private static final String zkAddress = "bigdata03:2181/kafka";
     public static void main(String[] args) throws InterruptedException {
 //        for (int j = 0; j < 2; j++) {
             ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5);

@@ -18,12 +18,12 @@ public class ThreadPoolExceptionhandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ThreadPoolExceptionhandler.class);
 
-    public static void main(String[] args) throws Exception {
+        public static void main(String[] args) throws Exception {
 //        exception();
 //        method1();
 //        method2();
 //        method3();
-        method4();
+            method4();
     }
 
 
