@@ -6,13 +6,19 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * @author jiangyinwei
+ */
 public class AckStatistics {
+
+    private static final long MILLSECONDS_DAY = 1000 * 60 * 60 * 24;
 
     private static java.util.Map<Long, AckAccumulatorItem> localCache = new ConcurrentHashMap<Long, AckAccumulatorItem>();
 
@@ -35,16 +41,11 @@ public class AckStatistics {
         scheduleThreadPool = Executors.newScheduledThreadPool(1);
         scheduleThreadPool.scheduleAtFixedRate(() -> {
             try {
-                localCache.forEach((appId, ackAccumulatorItem) -> {
-                    if (System.currentTimeMillis() - ackAccumulatorItem.lastSaveTime > 5000) {
-                        save2Redis(appId, ackAccumulatorItem);
-                    }
-                });
-
+                // 获取到所有的appId，然后删除之前记录的键值对
             } catch (Exception e) {
                 System.out.println("schedule error");
             }
-        }, 5000, 5000, TimeUnit.MILLISECONDS);
+        }, getDateStartTime(1) - System.currentTimeMillis(), MILLSECONDS_DAY, TimeUnit.MILLISECONDS);
     }
 
     public static void incr(long appid) {
@@ -54,17 +55,16 @@ public class AckStatistics {
     }
 
     private static void save2Redis(long appId, AckAccumulatorItem ackAccumulatorItem) {
+        long currentAckCount = ackAccumulatorItem.ackCount.get();
+        if (currentAckCount < ackAccumulatorItem.maxAckCount) {
+            return;
+        }
 
         if (ackAccumulatorItem.lock.tryLock()) {
             try {
-                long currentAckCount = ackAccumulatorItem.ackCount.get();
+                currentAckCount = ackAccumulatorItem.ackCount.get();
                 if (currentAckCount > ackAccumulatorItem.maxAckCount) {
-                    Jedis jedis = jedisPool.getResource();
-                    if (ackAccumulatorItem.lastSaveTime == 0) {
-                        jedis.set(String.valueOf(appId), String.valueOf(0), "NX", "PX", 100000);
-                    }
-                    Long incr = jedis.incrBy(String.valueOf(appId), currentAckCount);
-                    jedis.close();
+                    Long incr = jedisPool.getResource().hincrBy(String.valueOf(appId), String.valueOf(getDateStartTime(0)), currentAckCount);
                     // redis中保存成功,更新本地该app的送达数
                     if (incr > 0) {
                         ackAccumulatorItem.ackCount.getAndAdd(0 - currentAckCount);
@@ -74,7 +74,6 @@ public class AckStatistics {
                 ackAccumulatorItem.lock.unlock();
             }
         }
-
     }
 
     public static long getAckStatistics(long appId) throws ExecutionException {
@@ -85,6 +84,16 @@ public class AckStatistics {
             jedis.close();
             return ackCount;
         });
+    }
+
+    private static long getDateStartTime(int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
     }
 }
 
