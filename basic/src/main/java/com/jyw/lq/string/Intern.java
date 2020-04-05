@@ -8,7 +8,7 @@ import java.util.List;
 public class Intern {
     public static void main(String[] args) {
 
-        /*String str1 = "abc";
+        String str1 = "abc";
 
         String str2 = new String("abc");
 
@@ -18,28 +18,18 @@ public class Intern {
         System.out.println(str2 == str3);
         System.out.println(str1 == str3);
 
-        String a =new String("abc").intern();
+        String a = new String("abc").intern();
 
         String b = new String("abc").intern();
 
 
+        if (a == b) {
 
-        if(a==b) {
+            System.out.println("a==b");
 
-            System.out.print("a==b");
-
-        }*/
-
-        List<Long> uuids = new ArrayList<>();
-        uuids.add(1L);
-        uuids.add(30L);
-        uuids.add(0L);
-        uuids.sort(Long::compareTo);
-        for (int i = 0; i < uuids.size() - 1; i++) {
-            System.out.println(uuids.get(i));
         }
-        System.out.println("yYYYYYYYYYYYYY");
-        System.out.println(uuids.get(uuids.size() - 1));
+
+        System.out.println(str1.intern() == str2.intern());
 
     }
 }
