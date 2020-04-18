@@ -19,16 +19,15 @@ public class GuavaRetry {
 
     private static void retryDemo() throws ExecutionException, RetryException {
         Retryer<Boolean> retryer = RetryerBuilder.<Boolean>newBuilder()
-//                .retryIfException()
                 .retryIfRuntimeException()
-                /*.retryIfExceptionOfType(Exception.class)
-                .retryIfResult(Predicates.equalTo(false))*/
+                .retryIfExceptionOfType(Exception.class)
+                .retryIfResult(Predicates.equalTo(false))
                 .withWaitStrategy(WaitStrategies.fixedWait(1, TimeUnit.SECONDS))
                 .withStopStrategy(StopStrategies.stopAfterAttempt(6))
                 .withRetryListener(new RetryListener() {
                     @Override
                     public <V> void onRetry(Attempt<V> attempt) {
-                        LOGGER.info("retry:" + attempt.getAttemptNumber());
+                        LOGGER.info("retry {}", attempt.getAttemptNumber());
                     }
                 }).build();
 

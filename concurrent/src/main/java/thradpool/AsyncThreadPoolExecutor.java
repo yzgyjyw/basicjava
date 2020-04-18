@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.*;
 
-public class AsyncThreadPoolExecutor  {
+public class AsyncThreadPoolExecutor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AsyncThreadPoolExecutor.class);
 
@@ -42,18 +42,26 @@ public class AsyncThreadPoolExecutor  {
     static {
         scheduledExecutorService.scheduleAtFixedRate(() -> {
             LOGGER.info("Thread Pool Total Task Count:" + threadPoolExecutor.getTaskCount());
-            LOGGER.info("Thread Pool Has Completed Tasks Count:"+threadPoolExecutor.getCompletedTaskCount());
-            LOGGER.info("Thread Pool Has Created Max Thread Num:"+threadPoolExecutor.getMaximumPoolSize());
-            LOGGER.info("Thread Pool Threads Num :"+threadPoolExecutor.getPoolSize());
-            LOGGER.info("Thread Pool Active Threads Num :"+threadPoolExecutor.getActiveCount());
-        },0,10,TimeUnit.SECONDS);
-    }
+        LOGGER.info("Thread Pool Has Completed Tasks Count:" + threadPoolExecutor.getCompletedTaskCount());
+        LOGGER.info("Thread Pool Has Created Max Thread Num:" + threadPoolExecutor.getMaximumPoolSize());
+        LOGGER.info("Thread Pool Threads Num :" + threadPoolExecutor.getPoolSize());
+        LOGGER.info("Thread Pool Active Threads Num :" + threadPoolExecutor.getActiveCount());
+    }, 0, 10, TimeUnit.SECONDS);
+}
 
     public static void execute(Runnable runnable) {
         threadPoolExecutor.execute(runnable);
     }
 
-    public static void shutdown(){
+    public static void shutdown() {
+        threadPoolExecutor.shutdown();
+        try {
+            while (!threadPoolExecutor.awaitTermination(10, TimeUnit.MILLISECONDS)) {
+                LOGGER.info("threadPoolExecutor is shutdowning");
+            }
+        } catch (Exception ex) {
+            LOGGER.error("shutdown exception", ex);
+        }
 
     }
 }
