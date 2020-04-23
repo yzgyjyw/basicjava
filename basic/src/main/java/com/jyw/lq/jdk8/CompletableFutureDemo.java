@@ -6,7 +6,8 @@ import java.util.concurrent.ExecutionException;
 public class CompletableFutureDemo {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        allof();
+//        allof();
+        demo01();
     }
 
     private static void demo01() throws InterruptedException, ExecutionException {
