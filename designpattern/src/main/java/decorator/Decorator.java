@@ -12,4 +12,5 @@ public class Decorator implements Component {
     public void sampleOperation() {
         component.sampleOperation();
     }
+
 }

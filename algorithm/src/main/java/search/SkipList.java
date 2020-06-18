@@ -3,7 +3,13 @@ package search;
 import java.util.Random;
 
 // 跳表
+// https://github.com/wangzheng0822/algo/blob/master/java/17_skiplist/SkipList.java
 public class SkipList {
+
+
+    public static void main(String[] args) {
+        System.out.println("100".equals(null));
+    }
 
 
     private SkipListNode head;

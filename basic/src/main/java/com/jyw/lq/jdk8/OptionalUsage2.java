@@ -12,6 +12,11 @@ public class OptionalUsage2 {
         System.out.println(Optional.ofNullable(null).orElseGet(()->{
             return "abc";
         }));
+
+        Optional<Object> empty = Optional.ofNullable(null);
+        if(empty.isPresent()){
+            System.out.println("ok");
+        }
     }
 
 
