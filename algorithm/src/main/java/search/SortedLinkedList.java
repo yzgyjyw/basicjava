@@ -1,6 +1,6 @@
 package search;
 
-import structure.LinkList;
+import structure.linkedlist.LinkList;
 
 import java.util.ArrayList;
 import java.util.List;

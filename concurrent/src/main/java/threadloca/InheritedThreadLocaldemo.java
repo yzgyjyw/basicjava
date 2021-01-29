@@ -17,12 +17,14 @@ public class InheritedThreadLocaldemo {
 
         threadLocal.set("main thread value");
         Thread threadOne = new Thread(() -> {
-            System.out.println("childThread\t" + threadLocal.get());
+            System.out.println("childThread:\t" + threadLocal.get());
         });
 
         threadOne.start();
 
     }
 }
+
+
 
 

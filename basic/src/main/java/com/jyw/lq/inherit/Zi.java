@@ -6,4 +6,9 @@ public class Zi extends Fu {
         System.out.println("I'm Zi");
     }
 
+    @Override
+    public void tell(Number i){
+        System.out.println("tell zi");
+    }
+
 }

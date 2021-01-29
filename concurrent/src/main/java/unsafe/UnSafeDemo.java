@@ -4,6 +4,7 @@ import sun.misc.Unsafe;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
@@ -11,10 +12,11 @@ import java.util.stream.IntStream;
 public class UnSafeDemo {
 
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException, InstantiationException {
-        allocateMemory();
+//        allocateMemory();
+        unsafeWithArray();
     }
 
-    public  static void likeReflect() throws NoSuchFieldException, InstantiationException, IllegalAccessException {
+    public static void likeReflect() throws NoSuchFieldException, InstantiationException, IllegalAccessException {
         /*//由于Unsafe仅供jdk内部类使用,通过此种方式会抛出异常java.lang.SecurityException: Unsafe
         Unsafe unsafe = Unsafe.getUnsafe();*/
 
@@ -84,6 +86,7 @@ public class UnSafeDemo {
     }
 
     // park和unpark
+
     /**
      * JVM在上下文切换的时候使用了Unsafe中的两个非常牛逼的方法park()和unpark()。
      * 当一个线程正在等待某个操作时，JVM调用Unsafe的park()方法来阻塞此线程。
@@ -91,8 +94,41 @@ public class UnSafeDemo {
      * 我们之前在分析java中的集合时看到了大量的LockSupport.park()/unpark()，它们底层都是调用的Unsafe的这两个方法。
      */
 
-}
+    public static void unsafeWithArray() throws NoSuchFieldException, IllegalAccessException {
+        String[] str = new String[5];
 
+        String a1 = "1";
+        String a2 = "2";
+        String a3 = "3";
+        String a4 = "4";
+        String a5 = "5";
+
+        str[0] = a1;
+        str[1] = a2;
+        str[2] = a3;
+        str[3] = a4;
+
+
+
+        Unsafe unsafe;
+        Field f = Unsafe.class.getDeclaredField("theUnsafe");
+        f.setAccessible(true);
+        unsafe = (Unsafe) f.get(null);
+
+        Arrays.stream(str).forEach(i -> System.out.println(i));
+
+        //获取数组头位置
+        int base = unsafe.arrayBaseOffset(String[].class);
+
+        //获取数组偏移量
+        int scale = unsafe.arrayIndexScale(String[].class);
+
+        // 修改数组的0号元素
+        unsafe.compareAndSwapObject(str, base + 0 * scale, a1, "10");
+
+        Arrays.stream(str).forEach(i -> System.out.println(i));
+    }
+}
 
 
 class Person {

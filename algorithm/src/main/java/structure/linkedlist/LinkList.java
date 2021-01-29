@@ -1,4 +1,4 @@
-package structure;
+package structure.linkedlist;
 
 public class LinkList {
 
@@ -9,8 +9,27 @@ public class LinkList {
         this.head = head;
     }
 
-    public void add(ListNode node) {
+    public static LinkList getInstance() {
+        ListNode head = new ListNode(1);
+        ListNode second = new ListNode(2);
+        ListNode third = new ListNode(3);
+        ListNode fourth = new ListNode(4);
+        ListNode fifth = new ListNode(5);
+        ListNode sixth = new ListNode(6);
+        ListNode seventh = new ListNode(7);
 
+        head.setNext(second);
+        second.setNext(third);
+        third.setNext(fourth);
+        fourth.setNext(fifth);
+        fifth.setNext(sixth);
+        sixth.setNext(seventh);
+
+        return new LinkList(head);
+    }
+
+
+    public void add(ListNode node) {
         ListNode p = head;
 
         while (p.getNext() != null) {
@@ -20,6 +39,14 @@ public class LinkList {
         // 得到尾部节点
 
         p.setNext(node);
+    }
+
+    public static void printLinkList(ListNode head) {
+        ListNode p = head;
+        while (p != null) {
+            System.out.println(p.getData());
+            p = p.getNext();
+        }
     }
 
     public ListNode getHead() {

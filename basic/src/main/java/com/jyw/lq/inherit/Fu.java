@@ -10,4 +10,8 @@ public class Fu {
         sayHello();
     }
 
+    public void tell(Number number){
+        System.out.println("tell fu");
+    }
+
 }
