@@ -13,17 +13,13 @@ public class ScheduleShutdown {
             executorService.shutdown();
             while (!executorService.isTerminated()) {
                 try {
-                    executorService.awaitTermination(1, TimeUnit.SECONDS);
+                    executorService.awaitTermination(1, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException ignore) {
                 }
             }
         }));
 
-        executorService.scheduleWithFixedDelay(() -> {
-            System.out.println(System.currentTimeMillis());
-        }, 1,1, TimeUnit.SECONDS);
-
-
+        executorService.scheduleAtFixedRate(() -> System.out.println(System.currentTimeMillis()), 1,1, TimeUnit.SECONDS);
     }
 
 }

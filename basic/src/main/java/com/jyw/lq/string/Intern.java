@@ -1,10 +1,5 @@
 package com.jyw.lq.string;
 
-import com.sun.deploy.util.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Intern {
     public static void main(String[] args) {
 

@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutionException;
 public class CompletableFutureDemo {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        allof();
+        testComplete();
     }
 
     private static void demo01() throws InterruptedException, ExecutionException {
@@ -110,6 +110,29 @@ public class CompletableFutureDemo {
 
         //与allof相对应的还有一个anyOf()
         Thread.sleep(2000);
+    }
+
+    private static void testComplete() throws ExecutionException, InterruptedException {
+        // RPC服务端先创建一个completableFuture对象
+        CompletableFuture<String> completableFutureResult = new CompletableFuture<>();
+
+        // 异步处理
+        CompletableFuture.runAsync(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            completableFutureResult.complete("result");
+        });
+
+
+        // 处理完后将结果发送到RPC调用端
+        completableFutureResult.whenComplete((res, t) -> {
+            System.out.println("将结果" + res + "发送到客户端");
+        });
+
+        Thread.sleep(Integer.MAX_VALUE);
     }
 
 
