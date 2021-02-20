@@ -16,22 +16,21 @@ public class ReverseLinkList {
     }
 
     public static LinkList.ListNode reverse(LinkList.ListNode head) {
-        LinkList.ListNode reversed = null;
 
         LinkList.ListNode p = head;
 
-        LinkList.ListNode prev;
+        LinkList.ListNode result = null;
 
         while (p != null) {
+
             LinkList.ListNode next = p.getNext();
 
-            prev = p;
-            prev.setNext(reversed);
-            reversed = prev;
+            p.setNext(result);
+            result = p;
 
             p = next;
         }
 
-        return reversed;
+        return result;
     }
 }

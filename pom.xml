@@ -24,6 +24,7 @@
         <module>mylib</module>
         <module>spingboot</module>
         <module>orm</module>
+        <module>flink</module>
     </modules>
 
     <name>basicjava</name>

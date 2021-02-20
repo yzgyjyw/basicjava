@@ -24,25 +24,24 @@ public class QuickSort {
         int high = end;
 
         while (low < high) {
-            while (array[high] < array[start] && high > low) {
+            while (low < high && array[high] > array[start]) {
                 high--;
             }
 
-            while (array[low] > array[start] && high > low) {
+            while (low < high && array[low] < array[start]) {
                 low++;
             }
 
-            if (high > low) {
-                int temp = array[high];
-                array[high] = array[low];
-                array[low] = temp;
+            if (low < high) {
+                int temp = array[low];
+                array[low] = array[high];
+                array[high] = temp;
             }
         }
 
+
         int temp = array[start];
-
         array[start] = array[low];
-
         array[low] = temp;
 
         quickSort(array, start, low - 1);

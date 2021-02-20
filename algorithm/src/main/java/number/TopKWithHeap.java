@@ -7,37 +7,44 @@ public class TopKWithHeap {
     public static void main(String[] args) {
         int[] array = new int[]{234, 32, 432, 423, 4, 23, 543, 534, 5, 34};
 
+        int k = 3;
+
         for (int i = array.length / 2 - 1; i >= 0; i--) {
-            adjustHeap(array, i, array.length);
+            adjustHeap(array, i, array.length - 1);
         }
 
-
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < k; i++) {
             int temp = array[array.length - 1 - i];
             array[array.length - 1 - i] = array[0];
             array[0] = temp;
-            adjustHeap(array, 0, array.length - 1 - i);
+            adjustHeap(array, 0, array.length - 1 - i - 1);
         }
 
         Arrays.stream(array).forEach(System.out::println);
+
     }
 
-
-    public static void adjustHeap(int[] array, int start, int length) {
+    private static void adjustHeap(int[] array, int start, int end) {
 
         int temp = array[start];
 
-        for (int i = start * 2 + 1; i < length; i = i * 2 + 1) {
-            if (i + 1 < length && array[i + 1] > array[i]) {
-                i = i + 1;
+        for (int i = start * 2 + 1; i <= end; i = i * 2 + 1) {
+
+            if (i + 1 <= end && array[i] < array[i + 1]) {
+                i++;
             }
 
-            if (array[i] > temp) {
-                array[start] = array[i];
-                start = i;
+            if (array[i] <= temp) {
+                break;
             }
+
+            array[start] = array[i];
+            start = i;
         }
 
         array[start] = temp;
+
     }
+
+
 }

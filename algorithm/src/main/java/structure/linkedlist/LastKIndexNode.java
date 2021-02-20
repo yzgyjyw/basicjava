@@ -7,7 +7,7 @@ public class LastKIndexNode {
 
         LinkList linkList = LinkList.getInstance();
 
-        LinkList.ListNode lastKIndexNode = getLastKIndexNode(linkList.getHead(), 1);
+        LinkList.ListNode lastKIndexNode = getLastKIndexNode(linkList.getHead(), 2);
 
         if (lastKIndexNode != null) {
             System.out.println(lastKIndexNode.getData());
@@ -16,27 +16,24 @@ public class LastKIndexNode {
     }
 
     public static LinkList.ListNode getLastKIndexNode(LinkList.ListNode head, int k) {
-        LinkList.ListNode first = head;
+        int fastCount = k;
 
-        int firstPtrPos = 1;
+        LinkList.ListNode p = head;
 
-        while (first != null && firstPtrPos < k) {
-            first = first.getNext();
-            firstPtrPos++;
+        while (p != null && fastCount != 0) {
+            fastCount--;
+            p = p.getNext();
         }
 
-        if (first == null) {
-            return null;
+        LinkList.ListNode slow = head;
+
+        while (p != null) {
+            p = p.getNext();
+
+            slow = slow.getNext();
         }
 
-        LinkList.ListNode second = head;
-
-        while (first.getNext() != null) {
-            first = first.getNext();
-            second = second.getNext();
-        }
-
-        return second;
+        return slow;
     }
 
 

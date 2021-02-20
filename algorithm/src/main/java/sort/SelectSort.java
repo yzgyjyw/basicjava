@@ -8,10 +8,11 @@ public class SelectSort {
 
         int[] array = new int[]{1, 324, 453, 5, 4655, 4765, 76, 87686, 987};
 
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < array.length - 1; i++) {
             int min = i;
-            for(int j=i+1;j<array.length;j++){
-                if(array[min]> array[j]){
+
+            for (int j = i + 1; j < array.length; j++) {
+                if(array[j]<array[min]){
                     min = j;
                 }
             }

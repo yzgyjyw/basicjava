@@ -7,7 +7,6 @@ public class FirstSameNode {
         LinkList linkList = LinkList.getInstance();
 
 
-
         LinkList.ListNode head = new LinkList.ListNode(10);
 
         head.setNext(linkList.getHead().getNext());
@@ -20,42 +19,41 @@ public class FirstSameNode {
     }
 
     public static int getFirstSameNode(LinkList.ListNode head1, LinkList.ListNode head2) {
-        LinkList.ListNode p1 = head1;
-
-        LinkList.ListNode p2 = head2;
-
         int n1 = 0;
         int n2 = 0;
 
+        LinkList.ListNode p1 = head1;
+        LinkList.ListNode p2 = head2;
+
         while (p1 != null) {
-            p1 = p1.getNext();
             n1++;
+            p1 = p1.getNext();
         }
 
         while (p2 != null) {
-            p2 = p2.getNext();
             n2++;
+            p2 = p2.getNext();
         }
 
-        LinkList.ListNode longerList = n1 > n2 ? head1 : head2;
-        LinkList.ListNode shorterList = n1 > n2 ? head2 : head1;
+        LinkList.ListNode fast = n1 > n2 ? head1 : head2;
+        LinkList.ListNode slow = n1 > n2 ? head2 : head1;
 
         int step = Math.abs(n1 - n2);
 
         while (step > 0) {
-            longerList = longerList.getNext();
             step--;
+            fast = fast.getNext();
         }
 
-        while (longerList != null && shorterList != null) {
+        while (fast != null) {
 
-            if (longerList.getData() == shorterList.getData()) {
-                return longerList.getData();
+            if (fast.getData() == slow.getData()) {
+                return fast.getData();
             }
 
-            longerList = longerList.getNext();
+            fast = fast.getNext();
+            slow = slow.getNext();
 
-            shorterList = shorterList.getNext();
         }
 
         return -1;

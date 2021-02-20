@@ -8,11 +8,11 @@ public class MergeSort {
 
     public static void main(String[] args) {
 
-        int[] array = new int[]{1, 324, 453, 5, 4655, 4765, 76, 87686,312};
+        int[] array = new int[]{1, 324, 453, 5, 4655, 4765, 76, 87686, 312};
 
         int[] result = new int[9];
 
-        mergeSort(array, 0, array.length - 1,result);
+        mergeSort(array, 0, array.length - 1, result);
 
         Arrays.stream(result).forEach(System.out::println);
     }
@@ -23,9 +23,8 @@ public class MergeSort {
             return;
         }
 
-
         int start1 = start;
-        int end1 = (start+end)/2;
+        int end1 = (start1 + end) / 2;
 
         int start2 = end1 + 1;
         int end2 = end;
@@ -33,33 +32,25 @@ public class MergeSort {
         mergeSort(array, start1, end1, result);
         mergeSort(array, start2, end2, result);
 
-        int k = start;
+        int i = start1;
 
         while (start1 <= end1 && start2 <= end2) {
-            if (array[start1] <= array[start2]) {
-                result[k] = array[start1];
-                start1++;
-                k++;
+            if (array[start1] > array[start2]) {
+                result[i++] = array[start2++];
             } else {
-                result[k] = array[start2];
-                start2++;
-                k++;
+                result[i++] = array[start1++];
             }
         }
 
         while (start1 <= end1) {
-            result[k] = array[start1];
-            k++;
-            start1++;
+            result[i++] = array[start1++];
         }
 
         while (start2 <= end2) {
-            result[k] = array[start2];
-            k++;
-            start2++;
+            result[i++] = array[start2++];
         }
 
-        for (k = start; k <= end; k++){
+        for (int k = start; k <= end; k++) {
             array[k] = result[k];
         }
     }
