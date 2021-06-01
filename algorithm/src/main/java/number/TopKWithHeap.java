@@ -28,13 +28,13 @@ public class TopKWithHeap {
 
         int temp = array[start];
 
-        for (int i = start * 2 + 1; i <= end; i = i * 2 + 1) {
+        for(int i= start*2+1;i<=end;i++){
 
-            if (i + 1 <= end && array[i] < array[i + 1]) {
-                i++;
+            if(i+1<=end && array[i+1]>array[i]){
+                i=i+1;
             }
 
-            if (array[i] <= temp) {
+            if(array[i] <= temp){
                 break;
             }
 

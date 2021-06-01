@@ -1,5 +1,7 @@
 package number;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -11,23 +13,36 @@ public class huadongchuangkouzuidazhi {
 
         int size = 3;
 
-        Deque<Integer> deque = new LinkedList<>();
+        int[] result = new int[array.length - 3 + 1];
+
+        Deque<Integer> deque = new ArrayDeque<>();
 
         for (int i = 0; i < array.length; i++) {
-            if(!deque.isEmpty() && i-deque.peekFirst()+1>size){
-                deque.removeFirst();
+            if (deque.isEmpty()) {
+                deque.offer(i);
             }
-            while (!deque.isEmpty() && array[i]>array[deque.peekLast()]){
-                deque.removeLast();
+
+            while (!deque.isEmpty()) {
+                if (array[deque.peekLast()] < array[i]) {
+                    deque.removeLast();
+                }else{
+                    break;
+                }
             }
 
             deque.offer(i);
 
-            if(i>=size-1){
-                System.out.println(array[deque.peekFirst()]);
+            if (i >= size - 1) {
+                Integer integer = deque.peekFirst();
+                result[i - size + 1] = integer;
+
+                if(i-integer+1>=3){
+                    deque.removeFirst();
+                }
             }
         }
 
+        Arrays.stream(result).forEach(i->System.out.println(array[i]));
     }
 
 }

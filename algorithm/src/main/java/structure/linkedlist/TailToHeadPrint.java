@@ -10,7 +10,7 @@ public class TailToHeadPrint {
     }
 
     public static void tailToHeadPrint(LinkList.ListNode head) {
-        if (head.getNext() == null) {
+        if (head.getNext()==null) {
             System.out.println(head.getData());
             return;
         }
@@ -18,5 +18,6 @@ public class TailToHeadPrint {
         tailToHeadPrint(head.getNext());
 
         System.out.println(head.getData());
+
     }
 }

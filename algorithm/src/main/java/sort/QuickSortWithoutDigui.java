@@ -2,21 +2,18 @@ package sort;
 
 import java.util.Arrays;
 
-public class QuickSort {
+public class QuickSortWithoutDigui {
 
     public static void main(String[] args) {
         int[] array = new int[]{1, 324, 453, 5, 4655, 4765, 76, 87686, 987};
 
-        quickSort(0, array.length - 1, array);
+        int low = 0;
+        int high = array.length - 1;
 
         Arrays.stream(array).forEach(System.out::println);
     }
 
-    public static void quickSort(int start, int end, int[] array) {
-
-        if (start > end) {
-            return;
-        }
+    public static int quickSort(int start, int end, int[] array) {
 
         int low = start;
         int high = end;
@@ -43,7 +40,6 @@ public class QuickSort {
         array[start] = array[low];
         array[low] = temp;
 
-        quickSort(start, low - 1, array);
-        quickSort(low + 1, end, array);
+        return low;
     }
 }

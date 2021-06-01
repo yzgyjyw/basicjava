@@ -24,7 +24,7 @@ public class MergeSort {
         }
 
         int start1 = start;
-        int end1 = (start1 + end) / 2;
+        int end1 = (start + end) / 2;
 
         int start2 = end1 + 1;
         int end2 = end;
@@ -35,22 +35,25 @@ public class MergeSort {
         int i = start1;
 
         while (start1 <= end1 && start2 <= end2) {
-            if (array[start1] > array[start2]) {
-                result[i++] = array[start2++];
-            } else {
+
+            if (array[start1] >= array[start2]) {
                 result[i++] = array[start1++];
+            } else {
+                result[i++] = array[start2++];
             }
+
         }
 
-        while (start1 <= end1) {
+        while (start1<=end1){
             result[i++] = array[start1++];
         }
 
-        while (start2 <= end2) {
+        while (start2<=end2){
             result[i++] = array[start2++];
         }
 
-        for (int k = start; k <= end; k++) {
+
+        for(int k=start;k<=end;k++){
             array[k] = result[k];
         }
     }

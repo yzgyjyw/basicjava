@@ -17,9 +17,9 @@ public class ReverseLinkList {
 
     public static LinkList.ListNode reverse(LinkList.ListNode head) {
 
-        LinkList.ListNode p = head;
-
         LinkList.ListNode result = null;
+
+        LinkList.ListNode p = head;
 
         while (p != null) {
 

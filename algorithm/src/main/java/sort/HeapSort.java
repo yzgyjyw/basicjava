@@ -6,43 +6,46 @@ public class HeapSort {
 
     public static void main(String[] args) {
 
-        int[] array = new int[]{1, 324, 453, 5, 4655, 4765, 76, 87686, 987};
-
+        int[] array = new int[]{1, 324, 453, 5, 4655, 4765, 76, 87686, 987,-1};
 
         for (int i = array.length / 2 - 1; i >= 0; i--) {
             adjustHeap(i, array.length - 1, array);
         }
 
-        for (int i = array.length - 1; i > 0; i--) {
+        for (int i = 0; i < array.length; i++) {
             int temp = array[0];
-            array[0] = array[i];
-            array[i] = temp;
-            adjustHeap(0, i - 1, array);
+            array[0] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = temp;
+
+            adjustHeap(0, array.length - 1 - i - 1, array);
         }
 
 
         Arrays.stream(array).forEach(System.out::println);
+
     }
 
-    public static void adjustHeap(int position, int endIndex, int[] array) {
+    public static void adjustHeap(int start, int end, int[] array) {
 
-        int temp = array[position];
+        int temp = array[start];
 
-        for (int i = position * 2 + 1; i <= endIndex; i = i * 2 + 1) {
-            if (i + 1 <= endIndex && array[i + 1] < array[i]) {
-                i = i + 1;
+        for (int i = start * 2 + 1; i <= end; i = i * 2 + 1) {
+
+            if (i + 1 <= end && array[i + 1] < array[i]) {
+                i++;
             }
 
-            if (temp <= array[i]) {
+            if (array[i] > temp) {
                 break;
             }
 
-            array[position] = array[i];
-            position = i;
+            array[start] = array[i];
+            start = i;
+
         }
 
-        array[position] = temp;
-    }
+        array[start] = temp;
 
+    }
 
 }
