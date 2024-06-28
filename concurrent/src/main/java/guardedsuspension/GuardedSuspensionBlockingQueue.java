@@ -1,7 +1,5 @@
 package guardedsuspension;
 
-import com.sun.xml.internal.bind.v2.model.annotation.RuntimeAnnotationReader;
-
 import java.util.LinkedList;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;

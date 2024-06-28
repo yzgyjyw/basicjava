@@ -1,7 +1,5 @@
 package thradpool;
 
-import com.sun.xml.internal.bind.v2.model.annotation.RuntimeAnnotationReader;
-
 import java.util.Timer;
 import java.util.TimerTask;
 

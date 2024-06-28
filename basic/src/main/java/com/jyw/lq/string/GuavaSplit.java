@@ -1,11 +1,7 @@
 package com.jyw.lq.string;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import com.sun.deploy.util.StringUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GuavaSplit {
     public static void main(String[] args) {
