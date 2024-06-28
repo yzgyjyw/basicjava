@@ -7,57 +7,54 @@ public class TopK {
     public static void main(String[] args) {
         int[] array = new int[]{234, 32, 432, 423, 4, 23, 543, 534, 5, 34};
 
-        int k = 2;
+        int partition = partition(array, 0, array.length - 1);
 
-        int start = 0;
-        int end = array.length - 1;
+        while (partition != 3) {
 
-        int partition = partition(array, start, end);
-
-        while (partition != k) {
-
-            if (partition < k) {
-                start = partition + 1;
+            if (partition < 3) {
+                partition = partition(array, partition+1, array.length - 1);
             }
 
-            if (partition > k) {
-                end = partition - 1;
+            if (partition > 3) {
+                partition = partition(array, 0, partition-1);
             }
 
-            partition = partition(array, start, end);
         }
 
         Arrays.stream(array).forEach(System.out::println);
+
     }
 
     public static int partition(int[] array, int start, int end) {
+        if (start >= end) {
+            return -1;
+        }
 
-        if (start >= end) return -1;
+        int low = start;
+        int high = end;
 
-        int i = start;
-        int j = end;
+        while (low < high) {
 
-        while (i < j) {
-            while (j > i && array[j] < array[start]) {
-                j--;
+            while (high > low && array[high] < array[start]) {
+                high--;
             }
 
-            while (j > i && array[i] > array[start]) {
-                i++;
+            while (high > low && array[low] >= array[start]) {
+                low++;
             }
 
-            if (j > i) {
-                int temp = array[j];
-                array[j] = array[i];
-                array[i] = temp;
+            if (low < high) {
+                int temp = array[low];
+                array[low] = array[high];
+                array[high] = temp;
             }
         }
 
-        int temp = array[0];
-        array[0] = array[i];
-        array[i] = temp;
+        int temp = array[start];
+        array[start] = array[low];
+        array[low] = temp;
 
-        return i;
+        return low;
     }
 
 }

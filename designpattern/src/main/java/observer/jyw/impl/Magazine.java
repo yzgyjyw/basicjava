@@ -35,14 +35,17 @@ public class Magazine implements Subject {
         notifyObservers();
     }
 
+    @Override
     public void registerObservers(Observer observer) {
         observers.add(observer);
     }
 
+    @Override
     public void notifyObservers() {
         observers.forEach(observer->observer.update(this.getState()));
     }
 
+    @Override
     public void unregisterObserver(Observer observer) {
         observers.remove(observer);
     }

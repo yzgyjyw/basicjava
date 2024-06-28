@@ -26,6 +26,7 @@
     <module>orm</module>
     <module>rocketmq</module>
     <module>hbase</module>
+    <module>flink</module>
   </modules>
 
   <name>basicjava</name>

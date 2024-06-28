@@ -21,34 +21,33 @@ public class MergeSortedLinkList {
 
 
     public static LinkList.ListNode mergeTwoSortedLinkedList(LinkList.ListNode head1, LinkList.ListNode head2) {
+        LinkList.ListNode result = null;
+
+        LinkList.ListNode tail = null;
 
         LinkList.ListNode p1 = head1;
         LinkList.ListNode p2 = head2;
 
-        LinkList.ListNode result = null;
-        LinkList.ListNode tail = null;
-
         while (p1 != null && p2 != null) {
 
-            if (p1.getData() <= p2.getData()) {
+            if (p1.getData() < p2.getData()) {
                 if (result == null) {
                     result = p1;
-                    tail = p1;
                 } else {
                     tail.setNext(p1);
-                    tail = p1;
                 }
+                tail = p1;
                 p1 = p1.getNext();
             } else {
                 if (result == null) {
                     result = p2;
-                    tail = p2;
                 } else {
                     tail.setNext(p2);
-                    tail = p2;
                 }
+                tail = p2;
                 p2 = p2.getNext();
             }
+
         }
 
         while (p1 != null) {
@@ -62,6 +61,7 @@ public class MergeSortedLinkList {
             tail = p2;
             p2 = p2.getNext();
         }
+
         return result;
     }
 }

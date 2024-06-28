@@ -10,11 +10,14 @@ public class TailToHeadPrint {
     }
 
     public static void tailToHeadPrint(LinkList.ListNode head) {
-        if (head == null) return;
+        if (head.getNext()==null) {
+            System.out.println(head.getData());
+            return;
+        }
 
         tailToHeadPrint(head.getNext());
 
         System.out.println(head.getData());
-    }
 
+    }
 }

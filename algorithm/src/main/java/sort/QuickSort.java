@@ -4,19 +4,17 @@ import java.util.Arrays;
 
 public class QuickSort {
 
-
     public static void main(String[] args) {
-
         int[] array = new int[]{1, 324, 453, 5, 4655, 4765, 76, 87686, 987};
 
-        quickSort(array, 0, array.length - 1);
+        quickSort(0, array.length - 1, array);
 
         Arrays.stream(array).forEach(System.out::println);
     }
 
+    public static void quickSort(int start, int end, int[] array) {
 
-    public static void quickSort(int array[], int start, int end) {
-        if (start >= end) {
+        if (start > end) {
             return;
         }
 
@@ -24,28 +22,28 @@ public class QuickSort {
         int high = end;
 
         while (low < high) {
-            while (array[high] < array[start] && high > low) {
+
+            if (low < high && array[high] > array[start]) {
                 high--;
             }
 
-            while (array[low] > array[start] && high > low) {
+            if (low < high && array[low] < array[start]) {
                 low++;
             }
 
-            if (high > low) {
-                int temp = array[high];
-                array[high] = array[low];
-                array[low] = temp;
+            if (low < high) {
+                int temp = array[low];
+                array[low] = array[high];
+                array[high] = temp;
             }
+
         }
 
         int temp = array[start];
-
         array[start] = array[low];
-
         array[low] = temp;
 
-        quickSort(array, start, low - 1);
-        quickSort(array, low + 1, end);
+        quickSort(start, low - 1, array);
+        quickSort(low + 1, end, array);
     }
 }
