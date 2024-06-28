@@ -12,7 +12,6 @@ public class ThreadLocalDemo {
             executorService.submit(new ThreadLocalTask());
         }
     }
-
 }
 
 
@@ -20,9 +19,16 @@ class ThreadLocalTask implements Runnable {
 
     private static ThreadLocal<StringBuilder> stringBuilderThreadLocal = ThreadLocal.withInitial(StringBuilder::new);
 
+    private static ThreadLocal<String> content = new ThreadLocal<String>() {
+        @Override
+        protected String initialValue() {
+            return Thread.currentThread().getName() + "\tcontent";
+        }
+    };
+
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName()+"\tbegin...");
+        System.out.println(Thread.currentThread().getName() + "\tbegin...");
         stringBuilderThreadLocal.get().append(Thread.currentThread().getName())
                 .append("\t")
                 .append(System.currentTimeMillis())

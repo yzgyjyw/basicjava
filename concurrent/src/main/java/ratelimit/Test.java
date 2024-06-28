@@ -8,7 +8,7 @@ public class Test {
     }
 
     public static void testSmoothBursty() {
-        RateLimiter r = RateLimiter.create(0.5);
+        RateLimiter r = RateLimiter.create(1000);
 
         while (true) {
             // 0 ratelimit采用滞后处理的方式应对令牌不足:前一个请求获取令牌等待的时间需要由后一个请求承受

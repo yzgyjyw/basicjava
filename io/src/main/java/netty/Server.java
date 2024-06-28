@@ -44,7 +44,7 @@ public class Server {
 class EchoServerHandler extends SimpleChannelInboundHandler{
 
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Object o) throws Exception {
 
     }
 }
