@@ -7,7 +7,6 @@ public class FirstSameNode {
         LinkList linkList = LinkList.getInstance();
 
 
-
         LinkList.ListNode head = new LinkList.ListNode(10);
 
         head.setNext(linkList.getHead().getNext());

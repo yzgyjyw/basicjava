@@ -1,0 +1,14 @@
+<!--<configuration debug="true">-->
+
+  <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+    <!--&lt;!&ndash; encoders are  by default assigned the type-->
+         <!--ch.qos.logback.classic.encoder.PatternLayoutEncoder &ndash;&gt;-->
+    <!--<encoder>-->
+      <!--<pattern>%d{HH:mm:ss.SSS} %c [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>-->
+    <!--</encoder>-->
+  <!--</appender>-->
+
+  <!--<root level="debug">-->
+    <!--<appender-ref ref="STDOUT" />-->
+  <!--</root>-->
+<!--</configuration>-->

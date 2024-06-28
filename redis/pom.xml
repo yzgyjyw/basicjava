@@ -18,11 +18,6 @@
             <artifactId>jedis</artifactId>
             <version>3.2.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.xiaomi.miliao</groupId>
-            <artifactId>xmpush-server-api-http2</artifactId>
-            <version>1.0.8</version>
-        </dependency>
     </dependencies>
 
 
